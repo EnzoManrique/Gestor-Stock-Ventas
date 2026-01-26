@@ -1,0 +1,24 @@
+<?php
+// db.php
+$host = 'localhost';
+$db   = 'gestion_ventas';
+$user = '';      // Usuario por defecto de XAMPP
+$pass = '';          // Contraseña por defecto (vacía) de XAMPP
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Que lance excepciones como Java
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Que devuelva arrays asociativos
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
+
+try {
+    // Intentamos conectar
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (\PDOException $e) {
+    // Si falla, matamos el proceso y mostramos el error
+    die("Error de conexión: " . $e->getMessage());
+}
+?>
