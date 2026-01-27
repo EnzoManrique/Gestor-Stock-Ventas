@@ -103,6 +103,16 @@ $alerta_stock = $dashboard->productosBajoStock();
             </div>
         </div>
 
+        <div class="col-md-4">
+            <div class="card text-center mb-3 h-100 shadow-sm border-info">
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <h5 class="card-title">👤 Clientes</h5>
+                    <p class="card-text text-muted">Alta y modificación de clientes.</p>
+                    <a href="controllers/clientes.php" class="btn btn-info text-white mt-auto">Gestionar Clientes</a>
+                </div>
+            </div>
+        </div>
+
         <?php if($_SESSION['rol'] == 1): ?>
             <div class="col-md-4">
                 <div class="card text-center mb-3 h-100 shadow-sm border-warning">
