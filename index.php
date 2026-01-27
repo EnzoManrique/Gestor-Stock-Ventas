@@ -25,7 +25,8 @@ if (!isset($_SESSION['usuario_id'])) {
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
                 <a href="controllers/ventas.php" class="nav-link">Ir a Ventas</a>
-                <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
+                <a href="controllers/productos.php" class="nav-link">Productos</a>
+                <!--<li class="nav-item"><a class="nav-link" href="#">Productos</a></li>-->
             </ul>
             <span class="navbar-text text-white me-3">
                     Hola, <?php echo $_SESSION['nombre']; ?>
