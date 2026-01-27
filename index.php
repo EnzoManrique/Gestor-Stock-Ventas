@@ -40,14 +40,22 @@ if (!isset($_SESSION['usuario_id'])) {
     <h1>Bienvenido al Panel de Control</h1>
     <p class="lead">Seleccioná una opción del menú para comenzar.</p>
 
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Nueva Venta</h5>
-                    <p class="card-text">Registrar una venta y descontar stock.</p>
-                    <a href="#" class="btn btn-primary">Ir a Ventas</a>
-                </div>
+    <div class="col-md-4">
+        <div class="card text-center mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Nueva Venta</h5>
+                <p class="card-text">Registrar venta y descontar stock.</p>
+                <a href="controllers/ventas.php" class="btn btn-primary">Ir a Ventas</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Reportes</h5>
+                <p class="card-text">Ver historial y totales facturados.</p>
+                <a href="controllers/reportes.php" class="btn btn-success">Ver Reporte</a>
             </div>
         </div>
     </div>
