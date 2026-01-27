@@ -12,3 +12,4 @@ $stmt->execute(['hash' => $hash]);
 
 echo "Contraseña actualizada! Ahora el usuario 1 tiene pass encriptada.";
 ?>
+/
