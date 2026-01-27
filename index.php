@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario_id'])) {
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Ventas</a></li>
+                <a href="controllers/ventas.php" class="nav-link">Ir a Ventas</a>
                 <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
             </ul>
             <span class="navbar-text text-white me-3">
