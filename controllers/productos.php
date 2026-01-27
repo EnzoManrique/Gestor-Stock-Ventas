@@ -4,7 +4,14 @@ session_start();
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../models/Producto.php';
 
-if (!isset($_SESSION['usuario_id'])) { header('Location: auth.php'); exit; }
+if (!isset($_SESSION['usuario_id'])) { header('Location: auth.php'); exit;
+}
+// SEGURIDAD EXTRA: Solo Admin (Rol 1) puede gestionar productos
+// Los empleados (Rol 2) solo pueden VENDER, no tocar el inventario.
+if ($_SESSION['rol'] != 1) {
+    header('Location: ../index.php'); // ¡Afuera!
+    exit;
+}
 
 $productoModel = new Producto($pdo);
 $mensaje = "";

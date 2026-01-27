@@ -23,16 +23,18 @@ if (!isset($_SESSION['usuario_id'])) {
         <a class="navbar-brand" href="#">Sistema Ventas</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+                <!--<li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>-->
                 <a href="controllers/ventas.php" class="nav-link">Ir a Ventas</a>
+                <?php if($_SESSION['rol'] == 1): ?>
                 <a href="controllers/productos.php" class="nav-link">Productos</a>
+                <?php endif; ?>
                 <!--<li class="nav-item"><a class="nav-link" href="#">Productos</a></li>-->
             </ul>
             <span class="navbar-text text-white me-3">
                     Hola, <?php echo $_SESSION['nombre']; ?>
                     (<?php echo ($_SESSION['rol'] == 1) ? 'Admin' : 'Empleado'; ?>)
                 </span>
-            <a href="logout.php" class="btn btn-outline-danger btn-sm">Salir</a>
+            <a href="/gestion_ventas/logout.php" class="btn btn-outline-danger btn-sm">Salir</a>
         </div>
     </div>
 </nav>
@@ -60,6 +62,19 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
         </div>
     </div>
+
+    <?php if($_SESSION['rol'] == 1): ?>
+        <div class="col-md-4">
+            <div class="card text-center mb-3 border-dark">
+                <div class="card-body text-dark">
+                    <h5 class="card-title">Usuarios</h5>
+                    <p class="card-text">Crear nuevos accesos al sistema.</p>
+                    <a href="controllers/usuarios.php" class="btn btn-dark">Gestionar</a>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
 </div>
 </body>
 </html>
