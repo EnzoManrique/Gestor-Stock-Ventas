@@ -3,16 +3,17 @@
 session_start();
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../models/Producto.php';
+require_once __DIR__ . '/../models/Categoria.php';
 
 if (!isset($_SESSION['usuario_id'])) { header('Location: auth.php'); exit;
 }
 // SEGURIDAD EXTRA: Solo Admin (Rol 1) puede gestionar productos
 // Los empleados (Rol 2) solo pueden VENDER, no tocar el inventario.
-
+/*
 if ($_SESSION['rol'] != 1) {
     header('Location: ../index.php'); // ¡Afuera!
     exit;
-}
+}*/
 
 $productoModel = new Producto($pdo);
 $mensaje = "";
@@ -59,6 +60,9 @@ if (isset($_GET['editar'])) {
 
 // 5. Obtener lista actualizada
 $lista_productos = $productoModel->obtenerTodos();
+
+$categoriaModel = new Categoria($pdo); // <--- AGREGAR ESTO
+$lista_categorias_bd = $categoriaModel->obtenerTodas(); // <--- AGREGAR ESTO
 
 require_once __DIR__ . '/../views/productos_lista.php';
 ?>

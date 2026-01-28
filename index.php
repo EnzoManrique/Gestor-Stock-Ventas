@@ -113,17 +113,17 @@ $alerta_stock = $dashboard->productosBajoStock();
             </div>
         </div>
 
-        <?php if($_SESSION['rol'] == 1): ?>
-            <div class="col-md-4">
-                <div class="card text-center mb-3 h-100 shadow-sm border-warning">
-                    <div class="card-body d-flex flex-column justify-content-center">
-                        <h5 class="card-title">📦 Inventario</h5>
-                        <p class="card-text text-muted">ABM de Productos y Precios.</p>
-                        <a href="controllers/productos.php" class="btn btn-warning mt-auto">Gestionar Productos</a>
-                    </div>
+        <div class="col-md-4">
+            <div class="card text-center mb-3 h-100 shadow-sm border-warning">
+                <div class="card-body d-flex flex-column justify-content-center">
+                    <h5 class="card-title">📦 Inventario</h5>
+                    <p class="card-text text-muted">ABM de Productos y Precios.</p>
+                    <a href="controllers/productos.php" class="btn btn-warning mt-auto">Gestionar Productos</a>
                 </div>
             </div>
+        </div>
 
+        <?php if($_SESSION['rol'] == 1): ?>
             <div class="col-md-4">
                 <div class="card text-center mb-3 h-100 shadow-sm border-dark">
                     <div class="card-body d-flex flex-column justify-content-center">

@@ -46,11 +46,18 @@
                         </div>
 
                         <div class="mb-3">
-                            <label>Categoría (ID)</label>
-                            <select name="categoria" class="form-select">
-                                <option value="1" <?php echo ($producto_editar && $producto_editar['id_categoria'] == 1) ? 'selected' : ''; ?>>Periféricos</option>
-                                <option value="2" <?php echo ($producto_editar && $producto_editar['id_categoria'] == 2) ? 'selected' : ''; ?>>Hardware</option>
-                            </select>
+                            <label>Categoría</label>
+                            <div class="input-group">
+                                <select name="categoria" class="form-select" required>
+                                    <?php foreach($lista_categorias_bd as $cat): ?>
+                                        <option value="<?php echo $cat['id_categoria']; ?>"
+                                                <?php echo ($producto_editar && $producto_editar['id_categoria'] == $cat['id_categoria']) ? 'selected' : ''; ?>>
+                                            <?php echo $cat['nombre']; ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <a href="categorias.php" class="btn btn-outline-secondary" title="Nueva Categoría">➕</a>
+                            </div>
                         </div>
 
                         <div class="row">
