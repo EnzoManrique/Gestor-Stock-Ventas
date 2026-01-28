@@ -135,6 +135,18 @@ $alerta_stock = $dashboard->productosBajoStock();
             </div>
         <?php endif; ?>
 
+        <?php if($_SESSION['rol'] == 1): ?>
+            <div class="col-md-4">
+                <div class="card text-center mb-3 h-100 shadow-sm border-danger">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h5 class="card-title">📈 Estadísticas</h5>
+                        <p class="card-text text-muted">Análisis visual y gráficos.</p>
+                        <a href="controllers/estadisticas.php" class="btn btn-danger mt-auto">Ver Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
     </div>
 </div>
 
