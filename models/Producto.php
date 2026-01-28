@@ -69,5 +69,24 @@ class Producto {
         $stmt = $this->pdo->prepare("UPDATE productos SET activo = 1 WHERE id_producto = :id");
         return $stmt->execute(['id' => $id]);
     }
+
+    // ... (otros métodos) ...
+
+    // BUSCADOR: Trae productos activos que coincidan con el nombre
+    public function buscarActivos($termino) {
+        // Usamos los comodines % para buscar en cualquier parte del texto
+        $termino = "%" . $termino . "%";
+
+        $sql = "SELECT * FROM productos 
+                WHERE stock > 0 
+                AND activo = 1 
+                AND nombre LIKE :termino 
+                ORDER BY nombre";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['termino' => $termino]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>
