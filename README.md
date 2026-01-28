@@ -1,9 +1,7 @@
-# 🛒 Sistema de Gestión de Ventas e Inventario
+# Sistema de Gestión de Ventas e Inventario
 
 Sistema web completo para la gestión de ventas, control de stock y administración de clientes, desarrollado con **PHP** y **MySQL**. Ideal para pequeños comercios o puntos de venta (POS).
 
-![Dashboard Preview](ruta/a/una/captura_de_pantalla.png)
-*(Reemplaza esto con una captura de tu dashboard)*
 
 ## Características Principales
 
