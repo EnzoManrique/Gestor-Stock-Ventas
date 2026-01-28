@@ -26,6 +26,51 @@
             <?php else: ?>
 
                 <div class="table-responsive">
+                    <div class="container">
+
+                        <div class="card mb-4 shadow-sm border-dark">
+                            <div class="card-header bg-dark text-white">
+                                <h5 class="mb-0">🔍 Filtrar Reporte</h5>
+                            </div>
+                            <div class="card-body bg-light">
+                                <form method="GET" action="reportes.php" class="row g-3 align-items-end">
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fw-bold">Desde</label>
+                                        <input type="date" name="desde" class="form-control" value="<?php echo $f_desde; ?>">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fw-bold">Hasta</label>
+                                        <input type="date" name="hasta" class="form-control" value="<?php echo $f_hasta; ?>">
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="form-label fw-bold">Vendedor</label>
+                                        <select name="usuario" class="form-select">
+                                            <option value="">Todos</option>
+                                            <?php foreach($lista_usuarios as $u): ?>
+                                                <option value="<?php echo $u['id_usuario']; ?>" <?php echo ($f_usr == $u['id_usuario']) ? 'selected' : ''; ?>>
+                                                    <?php echo $u['nombre'] . ' ' . $u['apellido']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3 d-flex gap-2">
+                                        <button type="submit" class="btn btn-success w-100">Filtrar</button>
+                                        <a href="reportes.php" class="btn btn-outline-secondary">Limpiar</a>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card shadow">
+                        </div>
+
+                    </div>
+
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
                         <tr>
