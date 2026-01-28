@@ -77,6 +77,7 @@
                             <th># ID</th>
                             <th>Fecha</th>
                             <th>Cliente</th>
+                            <th>Dni</th>
                             <th>Vendedor</th>
                             <th>Productos (Detalle)</th>
                             <th class="text-end">Total</th>
@@ -87,7 +88,12 @@
                             <tr>
                                 <td><?php echo $v['id_venta']; ?></td>
                                 <td><?php echo $v['fecha']; ?></td>
-                                <td><?php echo $v['cliente']; ?></td>
+                                <td>
+                                    <div class="fw-bold"><?php echo $v['cliente']; ?></div>
+                                </td>
+                                <td>
+                                    <small class="text-muted"><?php echo $v['dni_cuil']; ?></small>
+                                </td>
                                 <td><?php echo $v['vendedor']; ?></td>
                                 <td>
                                             <span class="badge bg-secondary text-wrap" style="text-align: left;">

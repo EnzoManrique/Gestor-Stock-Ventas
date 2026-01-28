@@ -5,10 +5,9 @@ require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../models/Producto.php';
 require_once __DIR__ . '/../models/Categoria.php';
 
-if (!isset($_SESSION['usuario_id'])) { header('Location: auth.php'); exit;
-}
-// SEGURIDAD EXTRA: Solo Admin (Rol 1) puede gestionar productos
-// Los empleados (Rol 2) solo pueden VENDER, no tocar el inventario.
+if (!isset($_SESSION['usuario_id'])) { header('Location: auth.php'); exit; }
+
+// SEGURIDAD EXTRA: (Comentada como pediste)
 /*
 if ($_SESSION['rol'] != 1) {
     header('Location: ../index.php'); // ¡Afuera!
@@ -17,7 +16,10 @@ if ($_SESSION['rol'] != 1) {
 
 $productoModel = new Producto($pdo);
 $mensaje = "";
-$producto_editar = null; // Variable para guardar los datos si estamos editando
+$producto_editar = null;
+
+// --- AQUÍ HABÍAS PEGADO LA FUNCIÓN POR ERROR. YA LA QUITAMOS. ---
+// El controlador simplemente llama al modelo, no define las funciones.
 
 // 1. ELIMINAR (BAJA LÓGICA)
 if (isset($_GET['eliminar'])) {
@@ -48,21 +50,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $_POST['id_producto'];
         $productoModel->actualizar($id, $nombre, $costo, $venta, $stock, $cat);
         $mensaje = "Producto actualizado.";
-        // Limpiamos la variable para volver al modo "Crear"
         $producto_editar = null;
     }
 }
 
-// 4. MODO EDICIÓN: Si hacen clic en "Editar", cargamos los datos en el formulario
+// 4. MODO EDICIÓN
 if (isset($_GET['editar'])) {
     $producto_editar = $productoModel->obtenerPorId($_GET['editar']);
 }
 
 // 5. Obtener lista actualizada
+// Fíjate que acá LLAMAMOS a la función del modelo, no la escribimos de nuevo
 $lista_productos = $productoModel->obtenerTodos();
 
-$categoriaModel = new Categoria($pdo); // <--- AGREGAR ESTO
-$lista_categorias_bd = $categoriaModel->obtenerTodas(); // <--- AGREGAR ESTO
+// 6. Cargar categorías para el select
+$categoriaModel = new Categoria($pdo);
+$orden = isset($_GET['orden']) ? $_GET['orden'] : 'default';
+$lista_productos = $productoModel->obtenerTodos($orden);
 
 require_once __DIR__ . '/../views/productos_lista.php';
 ?>

@@ -9,13 +9,24 @@ class Producto {
     }
 
     // LISTAR TODOS (Para el admin, mostramos activos e inactivos)
-    public function obtenerTodos() {
-        $stmt = $this->pdo->query("
-            SELECT p.*, c.nombre as categoria 
-            FROM productos p
-            JOIN categorias c ON p.id_categoria = c.id_categoria
-            ORDER BY p.activo DESC, p.nombre ASC
-        ");
+    public function obtenerTodos($orden = 'default') {
+        $sql = "SELECT p.*, c.nombre as categoria_nombre 
+                FROM productos p 
+                LEFT JOIN categorias c ON p.id_categoria = c.id_categoria ";
+
+        // Decidimos el orden según el parámetro
+        if ($orden === 'stock_asc') {
+            // Menor stock primero (para ver críticos)
+            $sql .= " ORDER BY p.stock ASC";
+        } elseif ($orden === 'stock_desc') {
+            // Mayor stock primero
+            $sql .= " ORDER BY p.stock DESC";
+        } else {
+            // Orden por defecto (Activos primero, luego alfabético)
+            $sql .= " ORDER BY p.activo DESC, p.nombre ASC";
+        }
+
+        $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

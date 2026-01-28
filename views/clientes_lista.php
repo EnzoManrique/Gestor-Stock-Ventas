@@ -78,6 +78,11 @@
         </div>
 
         <div class="col-md-8">
+            <div class="card mb-3 border-primary">
+                <div class="card-body p-2">
+                    <input type="text" id="txtBuscarCliente" class="form-control" placeholder="🔍 Buscar por nombre, DNI o email...">
+                </div>
+            </div>
             <div class="card shadow">
                 <div class="card-body">
                     <div class="table-responsive">
@@ -91,7 +96,7 @@
                                 <th>Acciones</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="cuerpoTablaClientes">
                             <?php foreach($lista_clientes as $c): ?>
                                 <tr class="<?php echo $c['activo'] == 0 ? 'table-secondary text-muted' : ''; ?>">
                                     <td><?php echo $c['nombre'] . ' ' . $c['apellido']; ?></td>
@@ -129,5 +134,55 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('txtBuscarCliente').addEventListener('input', function() {
+        let termino = this.value;
+        let formData = new FormData();
+        formData.append('termino', termino);
+
+        fetch('ajax_buscar_clientes.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                let cuerpo = document.getElementById('cuerpoTablaClientes');
+                cuerpo.innerHTML = ""; // Limpiar tabla
+
+                if(data.length === 0) {
+                    cuerpo.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No se encontraron clientes.</td></tr>';
+                }
+
+                data.forEach(c => {
+                    // Badge de estado
+                    let estado = c.activo == 1
+                        ? '<span class="badge bg-success">Activo</span>'
+                        : '<span class="badge bg-secondary">Inactivo</span>';
+
+                    // Botones de acción
+                    let fila = `
+                <tr class="${c.activo == 0 ? 'table-secondary text-muted' : ''}">
+                    <td>${c.nombre} ${c.apellido}</td>
+                    <td>${c.dni_cuil}</td>
+                    <td><small>📞 ${c.telefono}<br>✉️ ${c.email}</small></td>
+                    <td>${estado}</td>
+                    <td>
+                        <a href="clientes.php?editar=${c.id_cliente}" class="btn btn-sm btn-warning">✏️</a>
+
+                        ${c.activo == 1
+                        ? `<a href="clientes.php?eliminar=${c.id_cliente}" class="btn btn-sm btn-danger" onclick="return confirm('¿Baja?')">🗑️</a>`
+                        : `<a href="clientes.php?activar=${c.id_cliente}" class="btn btn-sm btn-success" title="Reactivar">♻️</a>`
+                    }
+                    </td>
+                </tr>
+            `;
+                    cuerpo.innerHTML += fila;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+
 </body>
 </html>
