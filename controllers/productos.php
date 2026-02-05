@@ -60,11 +60,15 @@ if (isset($_GET['editar'])) {
 }
 
 // 5. Obtener lista actualizada
-// Fíjate que acá LLAMAMOS a la función del modelo, no la escribimos de nuevo
-$lista_productos = $productoModel->obtenerTodos();
 
-// 6. Cargar categorías para el select
+// ... (El resto del código de arriba queda igual) ...
+
+// 5. Cargar categorías para el select (ESTO ES LO QUE FALTABA)
 $categoriaModel = new Categoria($pdo);
+// Usamos el metodo que agregaste al modelo. Si da error, asegurate de haber actualizado models/Categoria.php
+$lista_categorias_bd = $categoriaModel->obtenerActivas();
+
+// 6. Obtener lista de productos actualizada (Con ordenamiento)
 $orden = isset($_GET['orden']) ? $_GET['orden'] : 'default';
 $lista_productos = $productoModel->obtenerTodos($orden);
 

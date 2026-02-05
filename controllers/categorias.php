@@ -43,7 +43,7 @@ $lista_categorias = $categoriaModel->obtenerTodas();
 <body class="bg-light">
 <nav class="navbar navbar-dark bg-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="productos.php">⬅ Volver a Productos</a>
+        <a class="navbar-brand" href="productos.php">Volver a Productos</a>
     </div>
 </nav>
 <div class="container">

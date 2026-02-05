@@ -10,7 +10,7 @@ class Categoria {
     }
 
     public function obtenerTodas() {
-        $stmt = $this->pdo->query("SELECT * FROM categorias ORDER BY nombre");
+        $stmt = $this->pdo->query("SELECT * FROM categorias ORDER BY nombre ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -24,5 +24,12 @@ class Categoria {
         $stmt = $this->pdo->prepare("DELETE FROM categorias WHERE id_categoria = :id");
         return $stmt->execute(['id' => $id]);
     }
+
+    // Metodo para el desplegable de productos (Solo activas)
+    public function obtenerActivas() {
+        $stmt = $this->pdo->query("SELECT * FROM categorias ORDER BY nombre ASC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>
