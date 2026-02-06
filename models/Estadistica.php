@@ -41,5 +41,18 @@ class Estadistica {
 
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerValorInventario() {
+        try {
+            // Ejecutamos la función como si fuera un SELECT normal
+            $stmt = $this->pdo->query("SELECT fn_valor_inventario() as total");
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Devolvemos el número (o 0 si viene vacío)
+            return $resultado['total'] ?? 0;
+        } catch (Exception $e) {
+            return 0; // Si falla, decimos que hay $0 para no romper la web
+        }
+    }
 }
 ?>

@@ -31,5 +31,18 @@ class Categoria {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-}
+    // 1. Obtener una sola categoría por su ID (Para llenar el input al editar)
+    public function obtenerPorId($id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM categorias WHERE id_categoria = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // 2. Guardar los cambios (UPDATE)
+    public function actualizar($id, $nombre) {
+        $stmt = $this->pdo->prepare("UPDATE categorias SET nombre = :nombre WHERE id_categoria = :id");
+        return $stmt->execute(['nombre' => $nombre, 'id' => $id]);
+    }
+
+} // <--- FIN DE LA CLASE
 ?>

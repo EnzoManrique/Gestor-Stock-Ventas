@@ -14,6 +14,7 @@ $statsModel = new Estadistica($pdo);
 
 $ventas_mes = $statsModel->ventasPorMes();
 $top_productos = $statsModel->productosMasVendidos();
+$valor_inventario = $statsModel->obtenerValorInventario();
 
 // Preparamos arrays para ChartJS
 $labels_mes = [];

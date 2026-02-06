@@ -63,7 +63,9 @@
                                         <option value="" disabled><i class="bi bi-exclamation-triangle"></i> No hay categorías cargadas</option>
                                     <?php endif; ?>
                                 </select>
+                                <?php if($_SESSION['rol'] == 1):?>
                                 <a href="categorias.php" class="btn btn-secondary" title="Gestionar Categorías"><i class="bi bi-gear-fill"></i></a>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -128,6 +130,7 @@
                                     <td class="fw-bold"><?php echo $p['nombre']; ?></td>
                                     <td><span class="badge bg-secondary"><?php echo $p['categoria_nombre'] ?? 'Sin Cat.'; ?></span></td>
                                     <td>$<?php echo number_format($p['precio_venta'], 2); ?></td>
+
                                     <td>
                                         <?php if($p['stock'] <= 2): ?>
                                             <span class="badge bg-danger rounded-pill"><i class="bi bi-exclamation-triangle-fill"></i> <?php echo $p['stock']; ?></span>
@@ -137,15 +140,31 @@
                                             <span class="badge bg-success rounded-pill"><?php echo $p['stock']; ?></span>
                                         <?php endif; ?>
                                     </td>
+
                                     <td>
                                         <?php echo $p['activo'] ? '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Activo</span>' : '<span class="text-danger">Inactivo</span>'; ?>
                                     </td>
+
                                     <td>
-                                        <a href="productos.php?editar=<?php echo $p['id_producto']; ?>" class="btn btn-sm btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                                        <?php if($p['activo']): ?>
-                                            <a href="productos.php?eliminar=<?php echo $p['id_producto']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Baja?')"><i class="bi bi-trash-fill"></i></a>
+                                        <?php if($_SESSION['rol'] == 1): ?>
+                                            <a href="productos.php?editar=<?php echo $p['id_producto']; ?>" class="btn btn-sm btn-warning" title="Editar">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+
+                                            <?php if($p['activo']): ?>
+                                                <a href="productos.php?eliminar=<?php echo $p['id_producto']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Baja?')" title="Dar de baja">
+                                                    <i class="bi bi-trash-fill"></i>
+                                                </a>
+                                            <?php else: ?>
+                                                <a href="productos.php?activar=<?php echo $p['id_producto']; ?>" class="btn btn-sm btn-success" title="Reactivar">
+                                                    <i class="bi bi-arrow-clockwise"></i>
+                                                </a>
+                                            <?php endif; ?>
+
                                         <?php else: ?>
-                                            <a href="productos.php?activar=<?php echo $p['id_producto']; ?>" class="btn btn-sm btn-success"><i class="bi bi-arrow-clockwise"></i></a>
+                                            <span class="text-muted" title="Acción restringida a Administradores">
+                        <i class="bi bi-lock-fill"></i>
+                    </span>
                                         <?php endif; ?>
                                     </td>
                                 </tr>

@@ -40,6 +40,29 @@
             </div>
         </div>
 
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card bg-primary text-white shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    Valor Total del Stock
+                                </div>
+                                <div class="h1 mb-0 font-weight-bold">
+                                    $<?php echo number_format($valor_inventario, 2); ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <span style="font-size: 3rem;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

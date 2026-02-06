@@ -5,7 +5,10 @@ require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../models/Producto.php';
 require_once __DIR__ . '/../models/Categoria.php';
 
-if (!isset($_SESSION['usuario_id'])) { header('Location: auth.php'); exit; }
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: auth.php');
+    exit;
+}
 
 // SEGURIDAD EXTRA: (Comentada como pediste)
 /*
@@ -23,40 +26,53 @@ $producto_editar = null;
 
 // 1. ELIMINAR (BAJA LÓGICA)
 if (isset($_GET['eliminar'])) {
-    $productoModel->darDeBaja($_GET['eliminar']);
-    $mensaje = "Producto dado de baja correctamente.";
+    if ($_SESSION['rol'] == 1) { // <--- CANDADO DE SEGURIDAD
+        $productoModel->darDeBaja($_GET['eliminar']);
+        $mensaje = "Producto dado de baja correctamente.";
+    } else {
+        $mensaje = "No tienes permiso para eliminar productos.";
+    }
 }
 
 // 2. REACTIVAR (Opcional, pero útil)
 if (isset($_GET['activar'])) {
-    $productoModel->reactivar($_GET['activar']);
-    $mensaje = "Producto reactivado.";
+    if ($_SESSION['rol'] == 1) {
+        $productoModel->reactivar($_GET['activar']);
+        $mensaje = "Producto reactivado.";
+    } else {
+        $mensaje = "No tienes permiso para activar productos";
+    }
 }
 
 // 3. PROCESAR FORMULARIO (CREAR O EDITAR)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'];
     $nombre = $_POST['nombre'];
-    $costo  = $_POST['costo'];
-    $venta  = $_POST['venta'];
-    $stock  = $_POST['stock'];
-    $cat    = $_POST['categoria'];
+    $costo = $_POST['costo'];
+    $venta = $_POST['venta'];
+    $stock = $_POST['stock'];
+    $cat = $_POST['categoria'];
 
     if ($accion === 'crear') {
         $productoModel->crear($nombre, $costo, $venta, $stock, $cat);
         $mensaje = "Producto creado.";
-    }
-    elseif ($accion === 'editar') {
-        $id = $_POST['id_producto'];
-        $productoModel->actualizar($id, $nombre, $costo, $venta, $stock, $cat);
-        $mensaje = "Producto actualizado.";
-        $producto_editar = null;
+    } elseif ($accion === 'editar') {
+        if($_SESSION['rol']==1){
+            $id = $_POST['id_producto'];
+            $productoModel->actualizar($id, $nombre, $costo, $venta, $stock, $cat);
+            $mensaje = "Producto actualizado.";
+            $producto_editar = null;
+        }else{
+            $mensaje = "No tienes permiso para editar un producto";
+        }
     }
 }
 
 // 4. MODO EDICIÓN
 if (isset($_GET['editar'])) {
-    $producto_editar = $productoModel->obtenerPorId($_GET['editar']);
+    if($_SESSION['rol']==1){
+        $producto_editar = $productoModel->obtenerPorId($_GET['editar']);
+    }
 }
 
 // 5. Obtener lista actualizada
