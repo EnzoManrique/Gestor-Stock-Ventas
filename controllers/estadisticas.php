@@ -16,6 +16,13 @@ $ventas_mes = $statsModel->ventasPorMes();
 $top_productos = $statsModel->productosMasVendidos();
 $valor_inventario = $statsModel->obtenerValorInventario();
 
+// 1. Lógica de Fechas (Filtro)
+// Si el usuario envió el formulario, usamos esas fechas. Si no, usamos el mes actual.
+$fecha_desde = $_GET['desde'] ?? date('Y-m-01'); // 1ro del mes actual
+$fecha_hasta = $_GET['hasta'] ?? date('Y-m-d');  // Hoy
+
+$reporte_rango = $statsModel->reportePorFechas($fecha_desde, $fecha_hasta);
+
 // Preparamos arrays para ChartJS
 $labels_mes = [];
 $data_mes = [];

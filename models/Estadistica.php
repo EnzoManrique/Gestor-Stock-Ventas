@@ -54,5 +54,23 @@ class Estadistica {
             return 0; // Si falla, decimos que hay $0 para no romper la web
         }
     }
+
+    public function reportePorFechas($desde, $hasta) {
+        try {
+            // Llamada al SP con los dos parámetros
+            $stmt = $this->pdo->prepare("CALL reporte_estadisticas_rango(?, ?)");
+            $stmt->execute([$desde, $hasta]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            // Si falla, devolvemos ceros para que no rompa la vista
+            return [
+                'total_tickets' => 0,
+                'total_facturado' => 0,
+                'total_costo' => 0,
+                'ganancia_neta' => 0
+            ];
+        }
+    }
+
 }
 ?>
